@@ -90,15 +90,8 @@ function getDateTime(){
 }
 
 function addOutput(color, num, operator, num1){
-
-    var equationStr = num + operator + num1;
-    var result = eval(equationStr);
-    var message = equationStr + "=" + result;
-
     var outputEl = document.createElement("DIV");
-    outputEl.className = "stuff-box";
-    outputEl.style.backgroundColor = color;
-    outputEl.style.borderColor = color;
+    outputEl.className = "stuff-box red";
     outputEl.onclick = function(e) {this.parentNode.removeChild(this)};
     outputDiv.insertBefore(outputEl, outputDiv.childNodes[0]);
 
@@ -107,6 +100,17 @@ function addOutput(color, num, operator, num1){
     timestamp.innerHTML = getDateTime();
     timestamp.className = "timestamp";
     outputEl.appendChild(timestamp);
+
+    var message = "Error! Missing One or More Operands!";
+
+    if(!(num === "" || num1 === "")){
+        var equationStr = num + operator + num1;
+        var message = equationStr + "=" + result;
+        var result = eval(equationStr);
+        var message = equationStr + "=" + result;
+        outputEl.style.backgroundColor = color;
+        outputEl.style.borderColor = color;
+    }
 
     var resultDisplay = document.createElement("P");
     resultDisplay.style.display = "inline";
